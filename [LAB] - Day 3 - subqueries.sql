@@ -63,7 +63,26 @@ WHERE category.name = 'Family';
 -- 5. Retrieve the name and email of customers from Canada using both subqueries and joins. 
 -- To use joins, you will need to identify the relevant tables and their primary and foreign keys.
 
-
+SELECT
+    first_name
+    , last_name
+    , email
+FROM customer
+WHERE address_id IN 
+	(SELECT 
+		address_id
+	  FROM address
+	  WHERE city_id IN 
+		(SELECT
+		city_id
+		FROM city
+        WHERE country_id IN 
+			( SELECT country_id
+			FROM country
+			WHERE country = 'Canada'
+			)
+		)
+    );
 
 
 -- 6. Determine which films were starred by the most prolific actor in the Sakila database. 
